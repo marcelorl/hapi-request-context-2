@@ -7,11 +7,8 @@ var chai = require('chai');
 var should = chai.should();
 var getNamespace = require('continuation-local-storage').getNamespace;
 
-
 var handler = function(req, reply) {
-	var ns = getNamespace('test-ns');
-	console.log(ns.get('app-id'));
-	//console.dir(ns)
+	var ns = getNamespace('hapi-request-context');
 	reply({ namespace: ns,
 		"app-id": ns.get('app-id'),
 		"lang": ns.get('lang')
@@ -26,7 +23,6 @@ function sertupServer() {
 	return server.registerAsync({
 		register: require('../index.js'),
 		options: {
-			namespace: 'test-ns',
 			mapHeaders: ['app-id', 'lang']
 		}
 	}).then(function () {
@@ -81,5 +77,4 @@ describe('Setting up CLS context opn request', function () {
 		});
 
 	});
-
 });

@@ -1,0 +1,6 @@
+{ 
+	"mocha": true,
+	"node": true,
+    "-W030": true,
+    "-W083": true
+}

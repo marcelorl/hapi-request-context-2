@@ -22,7 +22,12 @@ module.exports = {
 						}
 					});
 				}
-				reply.continue();
+
+				if(options.onRequest) {
+					options.onRequest(req, reply);
+				} else {
+					reply.continue();
+				}
 			});
 		});
 

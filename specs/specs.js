@@ -7,16 +7,7 @@ var chai = require('chai');
 var should = chai.should();
 var getNamespace = require('continuation-local-storage').getNamespace;
 
-var handler = function (req, reply) {
-	var ns = getNamespace('hapi-request-context');
-	reply({
-		namespace: ns,
-		"app-id": ns.get('app-id'),
-		"lang": ns.get('lang')
-	});
-};
-
-function sertupServer() {
+function sertupServer(options) {
 	var server = new Hapi.Server();
 	bb.promisifyAll(server);
 	server.connection({
@@ -24,15 +15,10 @@ function sertupServer() {
 	});
 	return server.registerAsync({
 		register: require('../index.js'),
-		options: {
+		options: options || {
 			mapHeaders: ['app-id', 'lang']
 		}
 	}).then(function () {
-		server.route({
-			method: 'GET',
-			path: '/',
-			handler: handler
-		});
 		return server;
 	});
 }
@@ -53,13 +39,22 @@ describe('Setting up CLS context on request', function () {
 	});
 
 	it('should estalish CLS context on each request', function (done) {
+		server.route({
+			method: 'GET',
+			path: '/test',
+			handler: function (req, reply) {
+				should.exist(getNamespace('hapi-request-context'));
+				done();
+				reply();
+			}
+		});
+
 		wrapper.injectAsync({
 			method: 'GET',
-			url: '/'
-		}).then(function (res) {
-			should.exist(res.result.namespace);
-
-			done();
+			url: '/test',
+			headers: {
+				'app-id': 'myID'
+			}
 		}).
 		catch (function (err) {
 			done(err);
@@ -67,16 +62,22 @@ describe('Setting up CLS context on request', function () {
 	});
 
 	it('should set header values on namespace', function (done) {
+		server.route({
+			method: 'GET',
+			path: '/test',
+			handler: function (req, reply) {
+				getNamespace('hapi-request-context').get('app-id').should.equal('myID');
+				done();
+				reply();
+			}
+		});
+
 		wrapper.injectAsync({
 			method: 'GET',
-			url: '/',
+			url: '/test',
 			headers: {
 				'app-id': 'myID'
 			}
-		}).then(function (res) {
-			should.exist(res.result.namespace);
-			res.result['app-id'].should.equal('myID');
-			done();
 		}).
 		catch (function (err) {
 			done(err);
@@ -109,6 +110,52 @@ describe('Setting up CLS context on request', function () {
 		}).
 		catch (function (err) {
 			done(err);
+		});
+	});
+
+	describe('Request hook', function () {
+		var wasCalled;
+
+		function requestHook(req, reply) {
+			wasCalled = true;
+			reply.continue();
+		}
+
+		beforeEach(function (done) {
+			new WrappedServer(sertupServer({
+				onRequest: requestHook
+			})).boot()
+				.then(function (ws) {
+					wrapper = ws.wrapper;
+					server = ws.server;
+					done();
+				}).
+			catch (function (err) {
+				done(err);
+			});
+		});
+
+		it('"options.onRequest(request, reply)" hook should be called when configured', function (done) {
+			server.route({
+				method: 'GET',
+				path: '/test2',
+				handler: function (req, reply) {
+					reply();
+				}
+			});
+
+			wrapper.injectAsync({
+				method: 'GET',
+				url: '/test2',
+				headers: {
+					'app-id': 'myID'
+				}
+			}).then(function () {
+				wasCalled.should.be.true;
+				done();
+			}).catch (function (err) {
+				done(err);
+			});
 		});
 	});
 });

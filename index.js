@@ -1,6 +1,8 @@
 'use strict';
 
-var createNamespace = require('continuation-local-storage').createNamespace;
+var cls = require('continuation-local-storage');
+var createNamespace = cls.createNamespace;
+var getNamespace = cls.getNamespace;
 var Hoek = require('hoek');
 var _ = require('lodash');
 
@@ -25,6 +27,12 @@ module.exports = {
 		});
 
 		next();
+	},
+	namespaceName: function() {
+		return 'hapi-request-context';
+	},
+	context: function() {
+		return getNamespace('hapi-request-context');
 	}
 };
 

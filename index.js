@@ -14,6 +14,8 @@ module.exports = {
 		Hoek.assert(!options.mapHeaders || Array.isArray(options.mapHeaders), new Error('"options.mapHeaders" is required to be an Array if set'));
 
 		server.ext('onRequest', function (req, reply) {
+			ns.bindEmitter(req.raw.req);
+			ns.bindEmitter(req.raw.res);
 			ns.run(function () {
 				if (options.mapHeaders && options.mapHeaders.length) {
 					_.each(options.mapHeaders, function (header) {

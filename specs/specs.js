@@ -44,19 +44,35 @@ describe('Setting up CLS context on request', function () {
 			path: '/test',
 			handler: function (req, reply) {
 				should.exist(getNamespace('hapi-request-context'));
-				done();
 				reply();
 			}
 		});
 
+		server.route({
+			method: 'POST',
+			path: '/test',
+			handler: function (req, reply) {
+				should.exist(getNamespace('hapi-request-context'));
+				reply();
+			}
+		});
 		wrapper.injectAsync({
 			method: 'GET',
 			url: '/test',
 			headers: {
 				'app-id': 'myID'
 			}
-		}).
-		catch (function (err) {
+		}).then(function() {
+			return wrapper.injectAsync({
+				method: 'GET',
+				url: '/test',
+				headers: {
+					'app-id': 'myID'
+				}
+			});
+		}).then(function() {
+			done();
+		}).catch (function (err) {
 			done(err);
 		});
 	});

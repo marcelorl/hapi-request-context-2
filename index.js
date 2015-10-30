@@ -39,7 +39,7 @@ module.exports = {
 		return 'hapi-request-context';
 	},
 	context: function() {
-		return getNamespace('hapi-request-context');
+		return ns;
 	}
 };
 

@@ -17,7 +17,7 @@ $ npm i hapi-request-context-2 --save
 
 ## Usage
 
-```
+```javascript
 const hapiRequestContext = require('hapi-request-context-2');
 
 // hapi plugin installation

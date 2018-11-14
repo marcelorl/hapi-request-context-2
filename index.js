@@ -1,13 +1,12 @@
 'use strict';
 
-var cls = require('continuation-local-storage');
-var createNamespace = cls.createNamespace;
-var getNamespace = cls.getNamespace;
-var Hoek = require('hoek');
-var _ = require('lodash');
+const cls = require('cls-hooked');
+const { createNamespace } = cls;
+const Hoek = require('hoek');
+const _ = require('lodash');
 
-var ns = createNamespace('hapi-request-context');
-var patchBluebird = require('cls-bluebird');
+const ns = createNamespace('hapi-request-context');
+const patchBluebird = require('cls-bluebird');
 patchBluebird(ns);
 module.exports = {
 	register: function (server, options, next) {

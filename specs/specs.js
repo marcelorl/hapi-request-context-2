@@ -5,7 +5,7 @@ var bb = require('bluebird');
 var WrappedServer = require('./WrappedServer');
 var chai = require('chai');
 var should = chai.should();
-var getNamespace = require('continuation-local-storage').getNamespace;
+var getNamespace = require('cls-hooked').getNamespace;
 
 function sertupServer(options) {
 	var server = new Hapi.Server();

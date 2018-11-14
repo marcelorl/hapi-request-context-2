@@ -52,7 +52,10 @@ ps. I couldn't fork it because the original repo is placed on bitbucket =/.
 ### What did I do?
 
  - Replaced `continuous-local-storage` package to `cls-hooked`. `cls` has some known issues with async/await requests where 
- the data set with it gets lost and doesnt travel through the entire request proccess.
- - Better README.md
+ the data set with it gets lost and doesnt travel through the entire request proccess;
+ - Better README.md;
+ - Fixed all npm package vulnerabilities.
 
-License: BSD
+## License
+
+BSD

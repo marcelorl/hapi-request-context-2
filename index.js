@@ -3,7 +3,6 @@
 const cls = require('cls-hooked');
 const { createNamespace } = cls;
 const Hoek = require('hoek');
-const _ = require('lodash');
 
 const ns = createNamespace('hapi-request-context');
 const patchBluebird = require('cls-bluebird');
@@ -17,7 +16,7 @@ module.exports = {
 			ns.bindEmitter(req.raw.res);
 			ns.run(function () {
 				if (options.mapHeaders && options.mapHeaders.length) {
-					_.each(options.mapHeaders, function (header) {
+					options.mapHeaders.map(function (header) {
 						if (req.headers[header]) {
 							ns.set(header, req.headers[header]);
 						}

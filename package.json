@@ -1,32 +1,31 @@
 {
-  "name": "hapi-request-context",
-  "version": "0.0.7",
-  "description": "Set CLS context values form HTTP headers on each request",
+  "name": "hapi-request-context-2",
+  "version": "0.0.1",
+  "description": "Sets values on the CLS context for each request",
   "main": "index.js",
   "scripts": {
     "test": "node_modules/.bin/mocha --recursive specs/"
   },
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/trigo/hapi-request-context.git"
+    "url": "https://github.com/marcelorl/hapi-request-context-2.git"
   },
   "keywords": [
     "hapi",
-    "cls"
+    "cls",
+    "context"
   ],
-  "author": "Christian Hubinger <christian@trigo.at>",
+  "author": "Marcelo Rizzardo Lima <marcelo_rl2@hotmail.com>",
   "license": "BSD",
   "dependencies": {
-    "bluebird": "^2.9.30",
-    "cls-bluebird": "^1.0.0",
+    "bluebird": "^3.5.3",
+    "cls-bluebird": "^2.1.0",
     "cls-hooked": "^4.2.2",
-    "hoek": "^2.14.0",
-    "lodash": "^3.9.3"
+    "hoek": "^6.0.3"
   },
   "devDependencies": {
-    "catbox": "^4.3.0",
-    "chai": "^3.0.0",
-    "hapi": "^8.6.1",
-    "mocha": "^2.2.5"
+    "chai": "^4.2.0",
+    "hapi": "^16.7.0",
+    "mocha": "^5.2.0"
   }
 }

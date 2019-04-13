@@ -6,3 +6,15 @@ install:
  - npm install
 script:
  - npm test
+deploy:
+  provider: script
+  script: "npm publish"
+  skip_cleanup: true
+  on:
+    tags: true
+notifications:
+  email:
+    recipients:
+    - marcelo_rl2@hotmail.com
+    on_success: change
+    on_failure: always

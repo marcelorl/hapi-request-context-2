@@ -1,5 +1,7 @@
 # hapi-request-context-2
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/marcelorl/hapi-request-context-2.svg)](https://greenkeeper.io/)
+
 Sets values on the CLS context for each request.
 
 It means:

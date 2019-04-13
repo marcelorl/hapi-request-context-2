@@ -1,5 +1,6 @@
 # hapi-request-context-2
 
+[![Build Status](https://travis-ci.org/marcelorl/hapi-request-context-2.svg?branch=master)](https://travis-ci.org/marcelorl/hapi-request-context-2)
 [![Greenkeeper badge](https://badges.greenkeeper.io/marcelorl/hapi-request-context-2.svg)](https://greenkeeper.io/)
 
 Sets values on the CLS context for each request.

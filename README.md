@@ -59,7 +59,7 @@ ps. I couldn't fork it because the original repo is placed on bitbucket =/.
  - Better README.md;
  - Fixed all npm package vulnerabilities.
  
-### Compability
+## Compability
 
 It was tested only with Hapi 16. If you would like to use it with other version, please open an issue or a
 PR (even better :p).

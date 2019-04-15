@@ -58,6 +58,11 @@ ps. I couldn't fork it because the original repo is placed on bitbucket =/.
  the data set with it gets lost and doesnt travel through the entire request proccess;
  - Better README.md;
  - Fixed all npm package vulnerabilities.
+ 
+### Compability
+
+It was tested only with Hapi 16. If you would like to use it with other version, please open an issue or a
+PR (even better :p).
 
 ## License
 
